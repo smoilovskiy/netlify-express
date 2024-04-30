@@ -16,7 +16,19 @@ router.get("/activeAirports", async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Error getting active airports..." });
+  }
+});
+
+router.get("/roundTripFares", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=POZ&market=en-gb&adultPaxCount=1&outboundDepartureDateFrom=2024-05-01&outboundDepartureDateTo=2024-05-31&inboundDepartureDateFrom=2024-05-01&inboundDepartureDateTo=2024-05-31&outboundDepartureTimeFrom&outboundDepartureTimeTo&inboundDepartureTimeFrom&inboundDepartureTimeTo&durationFrom&durationTo"
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error getting round trip fares..." });
   }
 });
 
