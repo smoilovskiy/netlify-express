@@ -21,9 +21,10 @@ router.get("/activeAirports", async (req, res) => {
 });
 
 router.get("/roundTripFares", async (req, res) => {
+  console.log("REQUEST", req.query);
   try {
     const response = await axios.get(
-      "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=POZ&market=en-gb&adultPaxCount=1&outboundDepartureDateFrom=2024-05-01&outboundDepartureDateTo=2024-05-31&inboundDepartureDateFrom=2024-05-01&inboundDepartureDateTo=2024-05-31&outboundDepartureTimeFrom&outboundDepartureTimeTo&inboundDepartureTimeFrom&inboundDepartureTimeTo&durationFrom&durationTo"
+      `https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=${req.query.origin}&market=en-gb&adultPaxCount=1&outboundDepartureDateFrom=${req.query.dateFrom}&outboundDepartureDateTo=${req.query.dateTo}&inboundDepartureDateFrom=${req.query.dateFrom}&inboundDepartureDateTo=${req.query.dateTo}&outboundDepartureTimeFrom&outboundDepartureTimeTo&inboundDepartureTimeFrom&inboundDepartureTimeTo&durationFrom&durationTo`
     );
     res.json(response.data);
   } catch (error) {
